@@ -40,6 +40,8 @@ data class BottomNavigationItem(
     //might need to add location of page for navigation
 
 )
+//this is a test comment for github
+
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
