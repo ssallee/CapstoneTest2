@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.capstonetest2"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.capstonetest2"
@@ -50,12 +50,17 @@ android {
 }
 
 dependencies {
+    val fragmentVersion = "1.6.1"
+    val navVersion = "2.7.4"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.7.0")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    implementation("androidx.fragment:fragment-ktx:$fragmentVersion")
     implementation("androidx.compose.ui:ui")
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")

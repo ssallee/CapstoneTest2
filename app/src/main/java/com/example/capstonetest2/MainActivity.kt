@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.setValue
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
@@ -29,6 +30,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import  androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+//import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.example.capstonetest2.ui.theme.CapstoneTest2Theme
 
 data class BottomNavigationItem(
@@ -48,6 +50,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
+
             CapstoneTest2Theme {
                 val items = listOf(
                     BottomNavigationItem(
@@ -62,7 +66,7 @@ class MainActivity : ComponentActivity() {
                         selectedIcon = Icons.Filled.Star,
                         unselectedIcon = Icons.Outlined.Star,
                         hasNews = false,
-                        badgeCount = 69
+                        badgeCount = 1
 
                         ),
                     BottomNavigationItem(
@@ -80,8 +84,16 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
+
                 ) {
                     Scaffold(
+
+
+
+
+
+
+
                         bottomBar = {
                             NavigationBar {
                                 items.forEachIndexed { index, item ->
