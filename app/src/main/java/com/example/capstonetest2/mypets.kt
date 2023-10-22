@@ -21,7 +21,7 @@ fun MyPetsScreen(navController: NavController){
 
     ) {
         Text(
-            text = "This is a placeholder page"
+            text = "This is a pet profile page"
         )
     }
 

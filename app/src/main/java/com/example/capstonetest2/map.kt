@@ -21,7 +21,7 @@ fun MapScreen(navController: NavController){
 
     ) {
         Text(
-            text = "This is the settings screen"
+            text = "This is the map screen"
         )
     }
 

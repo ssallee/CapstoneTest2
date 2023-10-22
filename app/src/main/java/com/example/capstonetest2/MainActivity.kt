@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.setValue
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,7 +20,6 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Email
-
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.LocationOn
@@ -43,10 +43,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.capstonetest2.ui.theme.CapstoneTest2Theme
 
 data class BottomNavigationItem(
+
     val title: String,
+
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
 
+    //only change this during the constructor if the text will differ than the navigation route
     val nav: String = title,
 
     //This shows a single red dot next to the icon
@@ -54,7 +57,7 @@ data class BottomNavigationItem(
 
     //this shows a number in a red circle next to the icon
     val badgeCount: Int? = null
-    //might need to add location of page for navigation
+
 
 )
 
@@ -95,6 +98,13 @@ class MainActivity : ComponentActivity() {
                         selectedIcon = Icons.Filled.Email,
                         unselectedIcon = Icons.Outlined.Email,
                         hasNews = false,
+
+                        ////////////////////////////////////////////
+                        //this will have to be built out in a way
+                        //to dynamically change based on new messages
+                        //received. Right now it just shows a default
+                        //value
+                        //////////////////////////////////////////////
                         badgeCount = 37
 
                     ),
@@ -145,11 +155,7 @@ class MainActivity : ComponentActivity() {
                                                 // Restore state when reselecting a previously selected item
                                                 restoreState = true
                                             }
-                                            /*TODO navigation controller
-                                            * this is where the code will go
-                                            * that will move you to a different
-                                            * page
-                                            * */
+
                                         },
                                         label = {
                                             Text(text = item.title)
@@ -180,7 +186,7 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     ) {
-                        //TODO move navHost to its own file and fix the backstack
+                        //TODO move navHost to its own file
                         NavHost(navController, startDestination = Screen.Home.route) {
                             composable(Screen.Home.route) { HomeScreen(navController) }
                             composable(Screen.MyPets.route) { MyPetsScreen(navController) }
