@@ -4,7 +4,8 @@ import androidx.annotation.StringRes
 
 sealed class Screen(val route: String) {
     object Home : Screen("Home")
-    object Placeholder : Screen("Placeholder")
-    object Settings : Screen("Settings")
+    object MyPets : Screen("MyPets")
+    object Messenger : Screen("Messenger")
+    object Map : Screen("Map")
 }
 

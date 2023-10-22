@@ -10,8 +10,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.setValue
@@ -19,7 +17,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Email
+
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Star
@@ -32,7 +35,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -44,7 +46,13 @@ data class BottomNavigationItem(
     val title: String,
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
+
+    val nav: String = title,
+
+    //This shows a single red dot next to the icon
     val hasNews: Boolean,
+
+    //this shows a number in a red circle next to the icon
     val badgeCount: Int? = null
     //might need to add location of page for navigation
 
@@ -73,18 +81,30 @@ class MainActivity : ComponentActivity() {
 
                         ),
                     BottomNavigationItem(
-                        title = "PlaceHolder",
+                        title = "My Pets",
                         selectedIcon = Icons.Filled.Star,
                         unselectedIcon = Icons.Outlined.Star,
+                        nav = "MyPets",
                         hasNews = false,
-                        badgeCount = 1
+                        badgeCount = null
 
                         ),
+
                     BottomNavigationItem(
-                        title = "Settings",
-                        selectedIcon = Icons.Filled.Settings,
-                        unselectedIcon = Icons.Outlined.Settings,
-                        hasNews = false
+                        title = "Messenger",
+                        selectedIcon = Icons.Filled.Email,
+                        unselectedIcon = Icons.Outlined.Email,
+                        hasNews = false,
+                        badgeCount = 37
+
+                    ),
+
+
+                    BottomNavigationItem(
+                        title = "Map",
+                        selectedIcon = Icons.Filled.LocationOn,
+                        unselectedIcon = Icons.Outlined.LocationOn,
+                        hasNews = true
 
 
                         ),
@@ -112,7 +132,7 @@ class MainActivity : ComponentActivity() {
                                         selected = selectedItemIndex == index,
                                         onClick = {
                                             selectedItemIndex = index
-                                            navController.navigate(item.title) {
+                                            navController.navigate(item.nav) {
                                                 // Pop up to the start destination of the graph to
                                                 // avoid building up a large stack of destinations
                                                 // on the back stack as users select items
@@ -150,7 +170,7 @@ class MainActivity : ComponentActivity() {
                                                 Icon(imageVector = if(index == selectedItemIndex){
                                                     item.selectedIcon
                                                 }else item.unselectedIcon,
-                                                    contentDescription = item.title
+                                                    contentDescription = item.nav
                                                 )
 
                                             }
@@ -163,8 +183,9 @@ class MainActivity : ComponentActivity() {
                         //TODO move navHost to its own file and fix the backstack
                         NavHost(navController, startDestination = Screen.Home.route) {
                             composable(Screen.Home.route) { HomeScreen(navController) }
-                            composable(Screen.Placeholder.route) { PlaceholderScreen(navController) }
-                            composable(Screen.Settings.route) { SettingsScreen(navController) }
+                            composable(Screen.MyPets.route) { MyPetsScreen(navController) }
+                            composable(Screen.Messenger.route) { MessengerScreen(navController) }
+                            composable(Screen.Map.route) { MapScreen(navController) }
 
                         }
                         //Greeting(name = "Sam", Modifier)

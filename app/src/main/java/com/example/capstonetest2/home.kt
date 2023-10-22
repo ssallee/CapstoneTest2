@@ -32,47 +32,13 @@ fun HomeScreen(navController: NavController){
     ) {
         Text(
             text = "This is the Home page"
+
+
         )
     }
 
 }
 
-
-@Composable
-fun PlaceholderScreen(navController: NavController){
-    Column(
-
-
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Blue)
-
-
-    ) {
-        Text(
-            text = "This is a placeholder page"
-        )
-    }
-
-}
-
-@Composable
-fun SettingsScreen(navController: NavController){
-    Column(
-
-
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Red)
-
-
-    ) {
-        Text(
-            text = "This is the settings screen"
-        )
-    }
-
-}
 
 
 
