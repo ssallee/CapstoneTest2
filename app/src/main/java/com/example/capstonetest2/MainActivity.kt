@@ -42,20 +42,24 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 //import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.example.capstonetest2.ui.theme.CapstoneTest2Theme
 
+
+
+//TODO move class to its own file
 data class BottomNavigationItem(
 
+    //This is the text that will display below the icon
     val title: String,
 
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
 
-    //only change this during the constructor if the text will differ than the navigation route
+    //only change this during the constructor if the title will differ than the navigation route
     val nav: String = title,
 
-    //This shows a single red dot next to the icon
+    //This shows a single dot next to the icon
     val hasNews: Boolean,
 
-    //this shows a number in a red circle next to the icon
+    //this shows a number in a circle next to the icon
     val badgeCount: Int? = null
 
 
@@ -114,6 +118,8 @@ class MainActivity : ComponentActivity() {
                         title = "Map",
                         selectedIcon = Icons.Filled.LocationOn,
                         unselectedIcon = Icons.Outlined.LocationOn,
+
+                        //currently set to on for testing purposes
                         hasNews = true
 
 
@@ -135,6 +141,11 @@ class MainActivity : ComponentActivity() {
                         bottomBar = {
                             NavigationBar {
                                 val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+
+                                //this was used in the documentation code for knowing what page is
+                                //currently selected, however I used a different method
+                                //TODO consider deleting currentDestination
                                 val currentDestination = navBackStackEntry?.destination
 
                                 items.forEachIndexed { index, item ->
@@ -150,9 +161,9 @@ class MainActivity : ComponentActivity() {
                                                     saveState = true
                                                 }
                                                 // Avoid multiple copies of the same destination when
-                                                // reselecting the same item
+                                                // re-selecting the same item
                                                 launchSingleTop = true
-                                                // Restore state when reselecting a previously selected item
+                                                // Restore state when re-selecting a previously selected item
                                                 restoreState = true
                                             }
 
