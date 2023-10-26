@@ -16,7 +16,7 @@ import androidx.navigation.NavController
 //import androidx.navigation.NavController
 import com.example.capstonetest2.ui.theme.CapstoneTest2Theme
 
-//TODO Create a separate file for each screen
+
 
 @Composable
 fun HomeScreen(navController: NavController){
