@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -56,14 +56,24 @@ fun createPet(){
         var petName by rememberSaveable {
             mutableStateOf("")
         }
+        var breedType by rememberSaveable {
+            mutableStateOf("")
+        }
 
-        TextField(
+        OutlinedTextField(
             value = petName,
             onValueChange = { petName = it },
             label = { Text("name") },
             singleLine = true
         )
-        TextButton(onClick = { /*TODO make a new pet using the info from the form*/ }) {
+        OutlinedTextField(
+            value = breedType,
+            onValueChange = { breedType = it },
+            label = { Text("breed") },
+            singleLine = true
+        )
+
+        Button(onClick = { /*TODO make a new pet using the info from the form*/ }) {
             Text("Add To My Pets")
         }
     }
