@@ -34,8 +34,9 @@ fun MyPetsScreen(navController: NavController){
 
     ) {
         Text(
-            text = "This is a pet profile page"
+            text = "This is my mom's cat"
         )
+        Image(painter = painterResource(id = R.drawable.cat2), contentDescription = "cat")
     }
 
 }
