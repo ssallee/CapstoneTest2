@@ -34,6 +34,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -45,6 +46,7 @@ import com.example.capstonetest2.ui.theme.CapstoneTest2Theme
 
 
 //TODO move class to its own file
+
 data class BottomNavigationItem(
 
     //This is the text that will display below the icon
@@ -62,8 +64,58 @@ data class BottomNavigationItem(
     //this shows a number in a circle next to the icon
     val badgeCount: Int? = null
 
-
 )
+
+val items = listOf(
+
+
+    BottomNavigationItem(
+        title = "Home",
+        selectedIcon = Icons.Filled.Home,
+        unselectedIcon = Icons.Outlined.Home,
+        hasNews = false,
+
+        ),
+    BottomNavigationItem(
+        title = "My Pets",
+        selectedIcon = Icons.Filled.Star,
+        unselectedIcon = Icons.Outlined.Star,
+        nav = "MyPets",
+        hasNews = false,
+        badgeCount = null
+
+    ),
+
+    BottomNavigationItem(
+        title = "Messenger",
+        selectedIcon = Icons.Filled.Email,
+        unselectedIcon = Icons.Outlined.Email,
+        hasNews = false,
+
+        ////////////////////////////////////////////
+        //this will have to be built out in a way
+        //to dynamically change based on new messages
+        //received. Right now it just shows a default
+        //value
+        //////////////////////////////////////////////
+        badgeCount = 37
+
+    ),
+
+
+    BottomNavigationItem(
+        title = "Map",
+        selectedIcon = Icons.Filled.LocationOn,
+        unselectedIcon = Icons.Outlined.LocationOn,
+
+        //currently set to on for testing purposes
+        hasNews = true
+
+
+    ),
+    //Additional navigation pages can go here
+)
+
 
 //this is a test comment for github
 
@@ -74,128 +126,16 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
-
+            val navController = rememberNavController()
             CapstoneTest2Theme {
-                val items = listOf(
-
-
-                    BottomNavigationItem(
-                        title = "Home",
-                        selectedIcon = Icons.Filled.Home,
-                        unselectedIcon = Icons.Outlined.Home,
-                        hasNews = false,
-
-                        ),
-                    BottomNavigationItem(
-                        title = "My Pets",
-                        selectedIcon = Icons.Filled.Star,
-                        unselectedIcon = Icons.Outlined.Star,
-                        nav = "MyPets",
-                        hasNews = false,
-                        badgeCount = null
-
-                        ),
-
-                    BottomNavigationItem(
-                        title = "Messenger",
-                        selectedIcon = Icons.Filled.Email,
-                        unselectedIcon = Icons.Outlined.Email,
-                        hasNews = false,
-
-                        ////////////////////////////////////////////
-                        //this will have to be built out in a way
-                        //to dynamically change based on new messages
-                        //received. Right now it just shows a default
-                        //value
-                        //////////////////////////////////////////////
-                        badgeCount = 37
-
-                    ),
-
-
-                    BottomNavigationItem(
-                        title = "Map",
-                        selectedIcon = Icons.Filled.LocationOn,
-                        unselectedIcon = Icons.Outlined.LocationOn,
-
-                        //currently set to on for testing purposes
-                        hasNews = true
-
-
-                        ),
-                    //Additional navigation pages can go here
-                )
-                var selectedItemIndex by rememberSaveable {
-                    mutableIntStateOf(0)
-                }
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
-
                 ) {
-                    val navController = rememberNavController()
+
                     Scaffold(
 
-
-                        bottomBar = {
-                            NavigationBar {
-                                val navBackStackEntry by navController.currentBackStackEntryAsState()
-
-
-                                //this was used in the documentation code for knowing what page is
-                                //currently selected, however I used a different method
-                                //TODO consider deleting currentDestination
-                                val currentDestination = navBackStackEntry?.destination
-
-                                items.forEachIndexed { index, item ->
-                                    NavigationBarItem(
-                                        selected = selectedItemIndex == index,
-                                        onClick = {
-                                            selectedItemIndex = index
-                                            navController.navigate(item.nav) {
-                                                // Pop up to the start destination of the graph to
-                                                // avoid building up a large stack of destinations
-                                                // on the back stack as users select items
-                                                popUpTo(navController.graph.findStartDestination().id) {
-                                                    saveState = true
-                                                }
-                                                // Avoid multiple copies of the same destination when
-                                                // re-selecting the same item
-                                                launchSingleTop = true
-                                                // Restore state when re-selecting a previously selected item
-                                                restoreState = true
-                                            }
-
-                                        },
-                                        label = {
-                                            Text(text = item.title)
-                                        },
-                                        icon = {
-                                            BadgedBox(
-                                                badge = {
-                                                    if(item.badgeCount != null){
-                                                        Badge {
-                                                            Text(text = item.badgeCount.toString())
-                                                        }
-                                                    }else if (item.hasNews){
-                                                        Badge()
-                                                    }
-
-                                                }
-                                            ) {
-                                                Icon(imageVector = if(index == selectedItemIndex){
-                                                    item.selectedIcon
-                                                }else item.unselectedIcon,
-                                                    contentDescription = item.nav
-                                                )
-
-                                            }
-                                        }
-                                    )
-                                }
-                            }
-                        }
+                        bottomBar = { BottomNavigation(navController)}
                     ) {
                         //TODO move navHost to its own file
                         NavHost(navController, startDestination = Screen.Home.route) {
@@ -213,7 +153,70 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun BottomNavigation(navController: NavController, modifier: Modifier = Modifier){
+    var selectedItemIndex by rememberSaveable {
+        mutableIntStateOf(0)
+    }
 
+    NavigationBar {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+
+        //this was used in the documentation code for knowing what page is
+        //currently selected, however I used a different method
+        //TODO consider deleting currentDestination
+        //val currentDestination = navBackStackEntry?.destination
+
+        items.forEachIndexed { index, item ->
+            NavigationBarItem(
+                selected = selectedItemIndex == index,
+                onClick = {
+                    selectedItemIndex = index
+                    navController.navigate(item.nav) {
+                        // Pop up to the start destination of the graph to
+                        // avoid building up a large stack of destinations
+                        // on the back stack as users select items
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        // Avoid multiple copies of the same destination when
+                        // re-selecting the same item
+                        launchSingleTop = true
+                        // Restore state when re-selecting a previously selected item
+                        restoreState = true
+                    }
+
+                },
+                label = {
+                    Text(text = item.title)
+                },
+                icon = {
+                    BadgedBox(
+                        badge = {
+                            if(item.badgeCount != null){
+                                Badge {
+                                    Text(text = item.badgeCount.toString())
+                                }
+                            }else if (item.hasNews){
+                                Badge()
+                            }
+
+                        }
+                    ) {
+                        Icon(imageVector = if(index == selectedItemIndex){
+                            item.selectedIcon
+                        }else item.unselectedIcon,
+                            contentDescription = item.nav
+                        )
+
+                    }
+                }
+            )
+        }
+    }
+}
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
