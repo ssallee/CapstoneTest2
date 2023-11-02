@@ -46,23 +46,23 @@ import com.example.capstonetest2.ui.theme.CapstoneTest2Theme
 
 
 @Composable
-fun MyPetsScreen(navController: NavController){
+fun MyPetsScreen(navController: NavController) {
 
 
-
-    Column(
-
-
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Blue)
+    CapstoneTest2Theme {
+        Column(
 
 
-    ) {
-        MyPetsColumn()
+            modifier = Modifier
+                .fillMaxSize()
+
+
+        ) {
+            MyPetsColumn()
+
+        }
 
     }
-
 }
 
 //input screen
@@ -155,6 +155,11 @@ private val myPetsData = listOf(
     R.drawable.dog to R.string.dog,
     R.drawable.dog2 to R.string.dog2,
     R.drawable.water_dog to R.string.water_dog,
+    R.drawable.water_dog2 to R.string.water_dog2,
+    R.drawable.water_dog2 to R.string.water_dog2,
+    R.drawable.water_dog2 to R.string.water_dog2,
+    R.drawable.water_dog2 to R.string.water_dog2,
+    R.drawable.water_dog2 to R.string.water_dog2,
     R.drawable.water_dog2 to R.string.water_dog2,
     R.drawable.water_cat to R.string.water_cat
 ).map { DrawablStringPair(it.first, it.second) }

@@ -19,29 +19,28 @@ import com.example.capstonetest2.ui.theme.CapstoneTest2Theme
 
 
 @Composable
-fun HomeScreen(navController: NavController){
-    Column(
+fun HomeScreen(navController: NavController) {
+    CapstoneTest2Theme {
+        Column(
 
 
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Magenta)
+            modifier = Modifier
+                .fillMaxSize()
 
 
 
-    ) {
-        Text(
-            text = "This is the Home page"
+        ) {
+            Text(
+                text = "This is the Home page"
 
 
-        )
+            )
+        }
+
     }
 
+
 }
-
-
-
-
 
 /*@Preview
 @Composable

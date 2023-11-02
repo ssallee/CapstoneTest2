@@ -8,23 +8,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
+import com.example.capstonetest2.ui.theme.CapstoneTest2Theme
 
 @Composable
-fun MapScreen(navController: NavController){
-    Column(
+fun MapScreen(navController: NavController) {
+    CapstoneTest2Theme {
+        Column(
 
 
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Red)
+            modifier = Modifier
+                .fillMaxSize()
 
 
-    ) {
-        Text(
-            text = "This is the map screen"
-        )
+
+        ) {
+            Text(
+                text = "This is the map screen"
+            )
+        }
+
     }
 
 }
-
-

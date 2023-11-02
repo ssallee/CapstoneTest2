@@ -30,20 +30,24 @@ import androidx.navigation.NavController
 import com.example.capstonetest2.ui.theme.CapstoneTest2Theme
 
 @Composable
-fun MessengerScreen(navController: NavController){
-    Column(
+fun MessengerScreen(navController: NavController) {
+
+    CapstoneTest2Theme {
+        Column(
 
 
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Yellow)
+            modifier = Modifier
+                .fillMaxSize()
 
 
-    ) {
-        PetCategoryRow()
+
+        ) {
+            PetCategoryRow()
+        }
+
     }
-
 }
+
 @Composable
 fun PetCategoryElement(
     @DrawableRes drawable: Int,
