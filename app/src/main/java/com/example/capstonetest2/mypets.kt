@@ -7,10 +7,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -19,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,6 +42,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.capstonetest2.ui.theme.CapstoneTest2Theme
 
+
+
+
 @Composable
 fun MyPetsScreen(navController: NavController){
 
@@ -52,8 +59,8 @@ fun MyPetsScreen(navController: NavController){
 
 
     ) {
+        MyPetsColumn()
 
-        PetCategoryRow()
     }
 
 }
@@ -92,57 +99,57 @@ fun createPet(){
        }
     }
 }
+
 @Composable
-fun PetCategoryElement(
+fun MyPetsCard(
     @DrawableRes drawable: Int,
     @StringRes text: Int,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
+    Surface(
+        shape = MaterialTheme.shapes.medium,
+        color = MaterialTheme.colorScheme.surfaceVariant,
         modifier = modifier
-
-    ){
-        Image(painter = painterResource(drawable),
-            contentScale = ContentScale.Crop,
-
-            contentDescription = null,
-            modifier = Modifier
-                .size(88.dp)
-                .clip(CircleShape)
-        )
-        Text(text = stringResource(text),
-            modifier = Modifier.paddingFromBaseline(top = 24.dp, bottom = 8.dp),
-            style = MaterialTheme.typography.bodyMedium
-        )
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.width(255.dp)
+        ) {
+            Image(
+                painter = painterResource(drawable),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(80.dp)
+            )
+            Text(
+                text = stringResource(text),
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
     }
 }
 
-
 @Composable
-fun PetCategoryRow(
+fun MyPetsColumn(
     modifier: Modifier = Modifier
 ) {
-    LazyRow(
-        horizontalArrangement= Arrangement.spacedBy(8.dp),
+    LazyColumn(
+        verticalArrangement= Arrangement.spacedBy(8.dp),
         modifier = modifier,
         contentPadding = PaddingValues(horizontal = 16.dp)
 
 
     )
     {
-        items(petCategoryData){ item ->
-            PetCategoryElement(item.drawable, item.text)
+        items(myPetsData){item ->
+            MyPetsCard(item.drawable, item.text)
         }
     }
 }
 
-private data class DrawableStringPair(
-    @DrawableRes val drawable: Int,
-    @StringRes val text: Int
-)
-
-private val petCategoryData = listOf(
+//test data
+private val myPetsData = listOf(
     R.drawable.cat2 to R.string.cat2,
     R.drawable.cat to R.string.cat,
     R.drawable.dog to R.string.dog,
@@ -150,24 +157,18 @@ private val petCategoryData = listOf(
     R.drawable.water_dog to R.string.water_dog,
     R.drawable.water_dog2 to R.string.water_dog2,
     R.drawable.water_cat to R.string.water_cat
-).map { DrawableStringPair(it.first, it.second) }
+).map { DrawablStringPair(it.first, it.second) }
+
+//TODO fix this later its a copy of a class in a different file
+private data class DrawablStringPair(
+    @DrawableRes val drawable: Int,
+    @StringRes val text: Int
+)
 
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
-fun PetCategoryElementPreview() {
-    CapstoneTest2Theme {
-        PetCategoryElement(
-            text = R.string.water_cat,
-            drawable = R.drawable.water_cat,
-            modifier = Modifier.padding(8.dp)
-        )
-    }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
-@Composable
-fun PetCategoryRowPreview() {
-    CapstoneTest2Theme { PetCategoryRow() }
+fun FavoriteCollectionsGridPreview() {
+    CapstoneTest2Theme { MyPetsColumn() }
 }
 
 /*
