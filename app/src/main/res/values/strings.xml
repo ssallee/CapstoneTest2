@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">CapstoneTest2</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="cat2">Kitten</string>
+    <string name="cat">Cat</string>
+    <string name="dog">Dog</string>
+    <string name="dog2">Happy Dog</string>
+    <string name="water_dog">Cool Dog</string>
+    <string name="water_dog2">Cooler Dog</string>
+    <string name="water_cat">Cool Cat</string>
 </resources>
