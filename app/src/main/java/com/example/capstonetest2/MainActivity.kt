@@ -26,10 +26,16 @@ import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material3.AlertDialogDefaults.containerColor
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Badge
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarDefaults.enterAlwaysScrollBehavior
+import androidx.compose.material3.TopAppBarDefaults.exitUntilCollapsedScrollBehavior
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -134,9 +140,25 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     Scaffold(
+                        topBar = {
+                            TopAppBar(
+
+                                /*colors = TopAppBarDefaults.topAppBarColors(
+                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                    titleContentColor = MaterialTheme.colorScheme.primary,
+                                ),*/
+
+                                title = {
+                                    Text("Top app bar")
+                                },
+                                scrollBehavior = exitUntilCollapsedScrollBehavior()
+                            )
+                        },
 
                         bottomBar = { BottomNavigation(navController)}
                     ) {
+
+
                         //TODO move navHost to its own file
                         NavHost(navController, startDestination = Screen.Home.route) {
                             composable(Screen.Home.route) { HomeScreen(navController) }
